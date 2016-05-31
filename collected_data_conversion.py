@@ -1,6 +1,9 @@
+# Written by Stephen Grinich for CS328, Carleton College final project experiment. 
+
 import csv
 import object_loader
-
+import operator
+import tversky
 
 # gets a num between 1 and 0 to see how similar two objects are. 
 # num_responses is total number of responses in this compariosn 
@@ -10,7 +13,7 @@ def find_average_val(response_lst):
 	
 	total = 1 * response_lst[0] + 2 * response_lst[1] + 3 * response_lst[2] + 4 * response_lst[3] + 5 * response_lst[4]
 	
-	num_responses = sum(response_lst)
+	num_responses = len(response_lst)
 
 	average = total/float(num_responses)
 	return average
@@ -58,7 +61,7 @@ def get_similarity_dict(name_tuples, responses):
 
 
 # Gets a single dictionary. Each key in this dictionary is a pair of characters in our experiment.
-# The value for each key is a list of all rankings between 1 and 5 that people recorded in our experiment
+# The value for each key is the average of all rankings between 1 and 5 that people recorded in the Google form surveys. 
 def get_all_similarity_dict():
 
 	tup = get_names_and_responses("Similarity_Data1.txt")
@@ -99,14 +102,51 @@ def get_all_similarity_dict():
 
 	for d in all_dicts:
 	    for k, v in d.iteritems():
-	        super_dict[k] = v
+	        super_dict[k] = find_average_val(v)
 
 	return super_dict
 
 
+# Get a subset of the dictionary for all key pairs that contain the person in the pair. I.e., if person = "Barack Obama", then this
+# function returns the 15 pairs of Barack Obama and each other character in our experiment.
+def get_most_simliar_for_person(person, pdict):
+	person_dict = { key:value for key, value in pdict.items() if person in key }
+	return person_dict
+
+def get_ascending_similarities(person):
+	alldict = get_all_similarity_dict()
+	subdict = get_most_simliar_for_person(person, alldict)
+
+	sorted_x = sorted(subdict.items(), key=operator.itemgetter(1))
+	sorted_x.reverse()
+
+	asc_lst = []
+	for tup in sorted_x:
+		if tup[0][0] != person:
+			asc_lst.append(tup[0][0])
+		else:
+			asc_lst.append(tup[0][1])
+
+
+
+	return asc_lst
+
+
+person = "Rosa Parks"
+print
+print 
+print("Ascending list of similarity to " + person + " :")
+print
+print("Experimental Results: " + str(get_ascending_similarities(person)))
+print 
+print("What the models give us: ")
+print
+tversky.get_model_similarities(person)
 
 
 
 
-get_all_similarity_dict()
+
+
+
 
