@@ -1,0 +1,9 @@
+
+april 24 begin project discussion with zack
+april 25 continued project discussion 
+april 27 met with zack to create proposal of project
+may 12 met with zack to go over anna's feedback 
+may 13 anna office to discuss our project 
+may 18 met to finalize surveys, how to remove bias 
+may 27 made surveys using python program 
+may 29 sent out final surveys

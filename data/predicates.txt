@@ -1,0 +1,22 @@
+Male
+Female
+Deceased
+Performer
+Athlete
+Award-winning
+Conqueror
+Evil
+Fictional
+Royal
+Adventurous
+Controversial
+Young
+Old
+Knowledgeable
+Modern
+Progressive
+Conservative
+Died abruptly
+Successful
+Writer
+Musician
