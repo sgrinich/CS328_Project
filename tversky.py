@@ -3,7 +3,7 @@ import numpy
 import similarity 
 
 object_names = object_loader.load_name_data("data/classes.txt")
-feature_matrix = object_loader.load_object_feature_data("data/predicate-matrix-binary-above-25-percent.txt")
+feature_matrix = object_loader.load_object_feature_data("data/predicate-matrix-binary-above-50-percent.txt")
 feature_names = object_loader.load_name_data("data/predicates.txt")
 
 def getobjectIndexFromName(name, object_names):
@@ -70,6 +70,8 @@ def get_model_similarities(person):
     for i in range(len(top_medin)):
         medin_ascending.append(top_medin[i][0])
 
-    print("Tversky Ascending in Similarity: " + str(tversky_ascending))
-    print("Shepard Ascending in Similarity: " + str(shepard_ascending))
-    print("Medin Ascending in Similarity: " + str(medin_ascending))
+    return [tversky_ascending, shepard_ascending, medin_ascending]
+
+    # print("Tversky Ascending in Similarity: " + str(tversky_ascending))
+    # print("Shepard Ascending in Similarity: " + str(shepard_ascending))
+    # print("Medin Ascending in Similarity: " + str(medin_ascending))

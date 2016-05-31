@@ -132,16 +132,12 @@ def get_ascending_similarities(person):
 	return asc_lst
 
 
-person = "Rosa Parks"
-print
-print 
-print("Ascending list of similarity to " + person + " :")
-print
-print("Experimental Results: " + str(get_ascending_similarities(person)))
-print 
-print("What the models give us: ")
-print
-tversky.get_model_similarities(person)
+def get_similarities_for_person(person):
+
+	experiment_results = (get_ascending_similarities(person))
+	models_results = tversky.get_model_similarities(person)
+
+	return [experiment_results, models_results]
 
 
 
