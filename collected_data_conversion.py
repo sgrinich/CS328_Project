@@ -25,7 +25,6 @@ def get_names_and_responses(filename):
 	for i in range(len(similar_data)):
 		if i != 0:
 			lst = (similar_data[i].split(",")[1:])
-			print(lst)
 			int_lst = []
 			for str_num in lst:
 				if str_num == '""':
@@ -58,8 +57,9 @@ def get_similarity_dict(name_tuples, responses):
 	return sim_dict
 
 
-
-def get_all_similarity_dics():
+# Gets a single dictionary. Each key in this dictionary is a pair of characters in our experiment.
+# The value for each key is a list of all rankings between 1 and 5 that people recorded in our experiment
+def get_all_similarity_dict():
 
 	tup = get_names_and_responses("Similarity_Data1.txt")
 	names = tup[0]
@@ -75,15 +75,38 @@ def get_all_similarity_dics():
 	name_tuples = get_tuples_from_names(names)
 
 	sim_dict_2 = get_similarity_dict(name_tuples, responses)
+
+
+	tup = get_names_and_responses("Similarity_Data3.txt")
+	names = tup[0]
+	responses = tup[1]
+	name_tuples = get_tuples_from_names(names)
+
+
+	sim_dict_3 = get_similarity_dict(name_tuples, responses)
+
+	tup = get_names_and_responses("Similarity_Data4.txt")
+	names = tup[0]
+	responses = tup[1]
+	name_tuples = get_tuples_from_names(names)
+
+	sim_dict_4 = get_similarity_dict(name_tuples, responses)
+
 	
-	print(sim_dict_1)
-	print
-	print 
-	print(sim_dict_2)
+	all_dicts = [sim_dict_1, sim_dict_2, sim_dict_3, sim_dict_4]
+
+	super_dict = {}
+
+	for d in all_dicts:
+	    for k, v in d.iteritems():
+	        super_dict[k] = v
+
+	return super_dict
 
 
 
 
 
-get_all_similarity_dics()
+
+get_all_similarity_dict()
 
