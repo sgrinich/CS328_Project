@@ -39,5 +39,11 @@ def load_object_feature_data(filename):
     f.close()
     return matrix
     
-
+def load_google_form_csv(filename):
+    names = []
+    f = open(filename)
+    for line in f:
+        names.append(line.strip())
+    f.close()
+    return names
         

@@ -1,4 +1,5 @@
 import csv
+import object_loader
 
 
 # gets a num between 1 and 0 to see how similar two objects are. 
@@ -15,15 +16,74 @@ def find_average_val(response_lst):
 	return average
 
 
-print(find_average_val([1, 4, 3, 4, 0]))
+def get_names_and_responses(filename):
+	pair_lists = [[] for x in range(0,30)]
+	similar_data = object_loader.load_google_form_csv("data/" + filename)
+	names = similar_data[0].split(",")
 
 
-with open('data/Similarity_Data1.csv', 'rb') as csvfile:
-	reader = csv.reader(csvfile, delimiter=',')
+	for i in range(len(similar_data)):
+		if i != 0:
+			lst = (similar_data[i].split(",")[1:])
+			print(lst)
+			int_lst = []
+			for str_num in lst:
+				if str_num == '""':
+					str_num = '"3"'
+				int_num = int(''.join(filter(lambda x: x.isdigit(), str_num)))
+				int_lst.append(int_num)
 
-	lst = [None for x in range(0,30)]
 
-	for i in range(len(reader)):
-		print(reader[i])
-		# for col in row:
-		# 	print col
+			for j in range(len(int_lst)):
+				pair_lists[j].append(int_lst[j])
+
+
+	return(names[1:], pair_lists)
+
+
+
+def get_tuples_from_names(names):
+	tup_lst = []
+	for i in range(len(names)):
+		# print(names[i])
+		lst = names[i].split("and")
+		tup = (lst[0][1:-1], lst[1][1:-1])
+		tup_lst.append(tup)
+	return tup_lst
+
+def get_similarity_dict(name_tuples, responses):
+	sim_dict = {}
+	for i in range(len(name_tuples)):
+		sim_dict[name_tuples[i]] = responses[i]
+	return sim_dict
+
+
+
+def get_all_similarity_dics():
+
+	tup = get_names_and_responses("Similarity_Data1.txt")
+	names = tup[0]
+	responses = tup[1]
+	name_tuples = get_tuples_from_names(names)
+
+
+	sim_dict_1 = get_similarity_dict(name_tuples, responses)
+
+	tup = get_names_and_responses("Similarity_Data2.txt")
+	names = tup[0]
+	responses = tup[1]
+	name_tuples = get_tuples_from_names(names)
+
+	sim_dict_2 = get_similarity_dict(name_tuples, responses)
+	
+	print(sim_dict_1)
+	print
+	print 
+	print(sim_dict_2)
+
+
+
+
+
+get_all_similarity_dics()
+
