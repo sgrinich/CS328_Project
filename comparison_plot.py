@@ -66,6 +66,9 @@ experiment, = plt.plot([x for x in range(15)], [experiment_map_dict[i] for i in 
 tversky, = plt.plot([x for x in range(15)], [tversky_map_dict[i] for i in object_lst_sans_person], label = "Tversky Model Results")
 shepard, = plt.plot([x for x in range(15)], [shepard_map_dict[i] for i in object_lst_sans_person], label = "Shepard Model Results")
 plt.legend([experiment, tversky, shepard], ['Experimental Results', 'Tversky Model Results', "Shepard Model Results"])
+plt.legend(bbox_to_anchor=(1.05, 1), loc=1, borderaxespad=0.)
+frame1 = plt.gca()
+frame1.axes.get_yaxis().set_ticks([])
 
 plt.title('Similarity to ' + person)
 plt.show()
